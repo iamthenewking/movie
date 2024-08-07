@@ -30,7 +30,8 @@ const SiteFooter = () => {
         </div>
 
         <p className="text-xs text-foreground/60 sm:text-sm">
-          @ 2023-{new Date().getFullYear()} {siteConfig.author}.
+          @ 2023-{new Date().getFullYear()} {siteConfig.author} x
+          @iamthenewking.
         </p>
       </div>
     </footer>
