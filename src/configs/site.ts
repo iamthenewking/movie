@@ -60,50 +60,23 @@ export const siteConfig = {
       icon: Icons.youtube,
     },
   ],
-  footerItems: [
-    { title: 'Audio Description', href: '/' },
-    { title: 'Help Center', href: '/' },
-    { title: 'Gift Cards', href: '/' },
-    { title: 'Media Center', href: '/' },
-    { title: 'Investor Relations', href: '/' },
-    { title: 'Jobs', href: '/' },
-    { title: 'Terms of Use', href: '/terms-of-use' },
-    { title: 'Privacy', href: '/' },
-    { title: 'Legal Notices', href: '/' },
-    { title: 'Cookie Preferences', href: '/' },
-    { title: 'Corporate Information', href: '/' },
-    { title: 'Contact Us', href: '/' },
-  ],
+  footerItems: [{ title: 'Contact Us', href: '/' }],
   mainNav: [
     {
       title: 'Home',
       href: '/home',
-      // icon: Icons.play,
     },
     {
       title: 'TV Shows',
       href: '/tv-shows',
-      // icon: Icons.tvShow,
     },
     {
       title: 'Movies',
       href: '/movies',
-      // icon: Icons.movie,
     },
     {
       title: 'New & Popular',
       href: '/new-and-popular',
-      // icon: Icons.trendingUp,
-    },
-    // {
-    //   title: "My List",
-    //   href: "/my-list",
-    //   // icon: Icons.list,
-    // },
-    {
-      title: 'Notifications',
-      // onClick: () => alert("🛹 Do a kickflip"),
-      // icon: Icons.bell,
     },
   ],
 };
