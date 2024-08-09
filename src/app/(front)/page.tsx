@@ -14,8 +14,6 @@ export default function Index() {
         className="container mx-auto flex flex-col items-center justify-center gap-4 pb-8 pt-28 text-center md:pb-12 lg:py-32">
         <h1 className="max-w-screen-lg text-center font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
           {siteConfig.slogan}
-          {/* {siteConfig.name} - watch tv shows online, watch movies online. */}
-          {/* An e-commerce skateshop built with everything new in Next.js 13 */}
         </h1>
         <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
           Step into a world where entertainment knows no boundaries, where your
@@ -25,8 +23,6 @@ export default function Index() {
           <Link className={`${buttonVariants({ size: 'lg' })}`} href="/home">
             Watch Now <ArrowRight className="ml-1 inline-block" />
           </Link>
-          {/* <Link className={`${buttonVariants({ size: "lg", variant: "outline" })}`} href={siteConfig.links.github} target="_blank" */}
-          {/*   rel="noreferrer">GitHub</Link> */}
         </div>
       </section>
       <section
@@ -130,11 +126,6 @@ export default function Index() {
             </div>
           </div>
         </div>
-        {/* <div className="mx-auto text-center md:max-w-[58rem]"> */}
-        {/*   <p className="leading-normal text-muted-foreground sm:text-lg sm:leading-7"> */}
-        {/*     Taxonomy also includes a blog and a full-featured documentation site */}
-        {/*   </p> */}
-        {/* </div> */}
       </section>
     </>
   );

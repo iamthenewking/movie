@@ -14,7 +14,7 @@ export default async function NewAndPopularPage() {
     {
       title: 'Netflix',
       req: { requestType: RequestType.NETFLIX, mediaType: MediaType.TV },
-      visible: false,
+      visible: true,
     },
     {
       title: 'Trending TV Shows',

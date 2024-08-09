@@ -8,7 +8,7 @@ const SiteFooter = () => {
   return (
     <footer aria-label="Footer" className="w-full">
       <div className="container grid w-full max-w-6xl gap-7 py-10">
-        <div className="flex flex-wrap items-center gap-2">
+        {/* <div className="flex flex-wrap items-center gap-2">
           {siteConfig.socialLinks.map(
             (item, i) =>
               item.href && (
@@ -27,11 +27,21 @@ const SiteFooter = () => {
                 </Link>
               ),
           )}
-        </div>
-
+        </div> */}
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+          {siteConfig.footerItems.map(
+            (item, i) =>
+              item.href && (
+                <li
+                  key={i}
+                  className="text-xs text-foreground/60 hover:underline sm:text-sm">
+                  <Link href={item.href}>{item.title}</Link>
+                </li>
+              ),
+          )}
+        </ul>
         <p className="text-xs text-foreground/60 sm:text-sm">
-          @ 2023-{new Date().getFullYear()} {siteConfig.author} x
-          @iamthenewking.
+          @ 2023-{new Date().getFullYear()}
         </p>
       </div>
     </footer>

@@ -23,6 +23,7 @@ const requestTypesNeedUpdateMediaType = [
   RequestType.POPULAR,
   RequestType.GENRE,
   RequestType.KOREAN,
+  RequestType.COMEDY,
 ];
 const baseUrl = 'https://api.themoviedb.org/3';
 
@@ -100,6 +101,7 @@ class MovieService extends BaseService {
         }&language=en-US&with_original_language=en&page=${
           req.page ?? 1
         }&without_genres=${Genre.TALK},${Genre.NEWS}`;
+
       case RequestType.KOREAN:
         return `/discover/${req.mediaType}?with_genres=${
           req.genre

@@ -34,29 +34,35 @@ export const siteConfig = {
   url: env.NEXT_PUBLIC_APP_URL,
   ogImage: `${env.NEXT_PUBLIC_APP_URL}/images/hero.jpg`,
 
-  socialLinks: [
-    {
-      title: 'Facebook',
-      href: `${env.NEXT_PUBLIC_FACEBOOK}`,
-      icon: Icons.facebook,
-    },
-    {
-      title: 'Instagram',
-      href: `${env.NEXT_PUBLIC_INSTAGRAM}`,
-      icon: Icons.instagram,
-    },
-    {
-      title: 'Twitter',
-      href: `${env.NEXT_PUBLIC_TWITTER}`,
-      icon: Icons.twitter,
-    },
-    {
-      title: 'Youtube',
-      href: `${env.NEXT_PUBLIC_YOUTUBE}`,
-      icon: Icons.youtube,
-    },
+  // socialLinks: [
+  //   {
+  //     title: 'Facebook',
+  //     href: `${env.NEXT_PUBLIC_FACEBOOK}`,
+  //     icon: Icons.facebook,
+  //   },
+  //   {
+  //     title: 'Instagram',
+  //     href: `${env.NEXT_PUBLIC_INSTAGRAM}`,
+  //     icon: Icons.instagram,
+  //   },
+  //   {
+  //     title: 'Twitter',
+  //     href: `${env.NEXT_PUBLIC_TWITTER}`,
+  //     icon: Icons.twitter,
+  //   },
+  //   {
+  //     title: 'Youtube',
+  //     href: `${env.NEXT_PUBLIC_YOUTUBE}`,
+  //     icon: Icons.youtube,
+  //   },
+  // ],
+
+  footerItems: [
+    { title: 'Korean Movies', href: '/korean' },
+    { title: 'New and Popular', href: '/new-and-popular' },
+    { title: 'Comedy', href: '/comedy' },
+    { title: 'Scary Movies', href: '/scary' },
   ],
-  footerItems: [{ title: 'Contact Us', href: '/' }],
   mainNav: [
     {
       title: 'Home',
