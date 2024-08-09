@@ -16,8 +16,7 @@ export default function Index() {
           {siteConfig.slogan}
         </h1>
         <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-          Step into a world where entertainment knows no boundaries, where your
-          screens come alive with an endless array of captivating stories.
+          {siteConfig.description}
         </p>
         <div className="space-x-4">
           <Link className={`${buttonVariants({ size: 'lg' })}`} href="/home">
