@@ -1,11 +1,22 @@
 'use client';
 import React from 'react';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+} from 'react-share';
 
 interface EmbedPlayerProps {
   url: string;
 }
 
 function EmbedPlayer(props: EmbedPlayerProps) {
+  const ref = React.useRef<HTMLIFrameElement>(null);
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
+
   React.useEffect(() => {
     if (ref.current) {
       ref.current.src = props.url;
@@ -16,9 +27,7 @@ function EmbedPlayer(props: EmbedPlayerProps) {
     return () => {
       iframe?.removeEventListener('load', handleIframeLoaded);
     };
-  }, []);
-
-  const ref = React.useRef<HTMLIFrameElement>(null);
+  }, [props.url]);
 
   const handleIframeLoaded = () => {
     if (!ref.current) {
@@ -44,6 +53,17 @@ function EmbedPlayer(props: EmbedPlayerProps) {
         style={{ opacity: 0 }}
         referrerPolicy="no-referrer-when-downgrade"
       />
+      <div style={{ position: 'absolute', bottom: 10, left: 10, zIndex: 1000 }}>
+        <FacebookShareButton url={currentUrl}>
+          <FacebookIcon size={32} round />
+        </FacebookShareButton>
+        <TwitterShareButton url={currentUrl}>
+          <TwitterIcon size={32} round />
+        </TwitterShareButton>
+        <LinkedinShareButton url={currentUrl}>
+          <LinkedinIcon size={32} round />
+        </LinkedinShareButton>
+      </div>
     </div>
   );
 }
