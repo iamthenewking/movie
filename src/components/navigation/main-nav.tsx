@@ -130,7 +130,7 @@ export function MainNav({ items }: MainNavProps) {
           onClick={() => handleChangeStatusOpen(false)}>
           <div className="flex items-center space-x-2">
             <Icons.logo className="h-6 w-6" aria-hidden="true" />
-            <span className="inline-block font-bold">{siteConfig.name}</span>
+            {/* <span className="inline-block font-bold">{siteConfig.name}</span> */}
             <span className="sr-only">Home</span>
           </div>
         </Link>
