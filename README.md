@@ -15,7 +15,7 @@ A launching point for building a movie streaming website.
 ### Deploy with Vercel
 1. Click the button below to deploy the project on Vercel.
 
-- [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbitfreee%2Fmovie-web-kickstart&env=NEXT_PUBLIC_APP_URL,NEXT_PUBLIC_TMDB_TOKEN,NEXT_PUBLIC_SITE_NAME) 
+- [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=[https%3A%2F%2Fgithub.com%2Fbitfreee%2Fmovie-web-kickstart](https://github.com/iamthenewking/movie)&env=NEXT_PUBLIC_APP_URL,NEXT_PUBLIC_TMDB_TOKEN,NEXT_PUBLIC_SITE_NAME) 
 2. Fill in the required environment variables:
 - `NEXT_PUBLIC_APP_URL`: The URL of your deployed project (e.g., `https://movie-web-kickstart.vercel.app`)
 - `NEXT_PUBLIC_TMDB_TOKEN`: Your TMDb API key (get it [here](https://www.themoviedb.org/documentation/api), or you can use default token in .env.example file for testing)
@@ -29,8 +29,8 @@ To deploy on [Cloudflare Pages](https://pages.cloudflare.com/) you can use the f
 
 ## Local Development
 
-1. Clone the repository: `git clone https://github.com/bitfreee/movie-web-kickstart`
-2. Navigate to the project directory: `cd movie-web-kickstart`
+1. Clone the repository: `git clone [https://github.com/bitfreee/movie-web-kickstart](https://github.com/iamthenewking/movie)`
+2. Navigate to the project directory: `cd movie`
 3. Install dependencies: `npm install`
 4. Create .env file `cp .env.example .env`
 4. Start the development server: `npm run dev`
