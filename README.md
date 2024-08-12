@@ -17,7 +17,7 @@ A launching point for building a movie streaming website.
 
 - [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=[https%3A%2F%2Fgithub.com%2Fbitfreee%2Fmovie-web-kickstart](https://github.com/iamthenewking/movie)&env=NEXT_PUBLIC_APP_URL,NEXT_PUBLIC_TMDB_TOKEN,NEXT_PUBLIC_SITE_NAME) 
 2. Fill in the required environment variables:
-- `NEXT_PUBLIC_APP_URL`: The URL of your deployed project (e.g., `https://movie-web-kickstart.vercel.app`)
+- `NEXT_PUBLIC_APP_URL`: The URL of your deployed project (e.g., `[https://movie-web-kickstart.vercel.app](http://movieko.vercel.app/)`)
 - `NEXT_PUBLIC_TMDB_TOKEN`: Your TMDb API key (get it [here](https://www.themoviedb.org/documentation/api), or you can use default token in .env.example file for testing)
 - `NEXT_PUBLIC_SITE_NAME`: The name of your website (e.g., `MovieWeb Kickstart`)
 
