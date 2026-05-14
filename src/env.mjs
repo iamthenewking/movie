@@ -25,6 +25,10 @@ export const env = createEnv({
     NEXT_PUBLIC_INSTAGRAM: z.string().url().optional(),
     NEXT_PUBLIC_YOUTUBE: z.string().url().optional(),
     NEXT_PUBLIC_IMAGE_DOMAIN: z.string().optional(),
+    NEXT_PUBLIC_WATCH_PROVIDER_PRIMARY_TEMPLATE: z.string().optional(),
+    NEXT_PUBLIC_WATCH_PROVIDER_PRIMARY_LABEL: z.string().optional(),
+    NEXT_PUBLIC_WATCH_PROVIDER_BACKUP_TEMPLATE: z.string().optional(),
+    NEXT_PUBLIC_WATCH_PROVIDER_BACKUP_LABEL: z.string().optional(),
   },
 
   /**
@@ -46,6 +50,14 @@ export const env = createEnv({
     NEXT_PUBLIC_YOUTUBE:
       process.env.NEXT_PUBLIC_YOUTUBE ?? 'https://youtube.com',
     NEXT_PUBLIC_IMAGE_DOMAIN: process.env.NEXT_PUBLIC_IMAGE_DOMAIN,
+    NEXT_PUBLIC_WATCH_PROVIDER_PRIMARY_TEMPLATE:
+      process.env.NEXT_PUBLIC_WATCH_PROVIDER_PRIMARY_TEMPLATE,
+    NEXT_PUBLIC_WATCH_PROVIDER_PRIMARY_LABEL:
+      process.env.NEXT_PUBLIC_WATCH_PROVIDER_PRIMARY_LABEL,
+    NEXT_PUBLIC_WATCH_PROVIDER_BACKUP_TEMPLATE:
+      process.env.NEXT_PUBLIC_WATCH_PROVIDER_BACKUP_TEMPLATE,
+    NEXT_PUBLIC_WATCH_PROVIDER_BACKUP_LABEL:
+      process.env.NEXT_PUBLIC_WATCH_PROVIDER_BACKUP_LABEL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.

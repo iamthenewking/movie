@@ -13,8 +13,16 @@ export default async function MoviePage() {
   const h1 = `${siteConfig.name} Movie`;
   const requests: ShowRequest[] = [
     {
-      title: 'Trending Now',
+      title: 'Trending Movies Today',
       req: { requestType: RequestType.TRENDING, mediaType: MediaType.MOVIE },
+      visible: true,
+    },
+    {
+      title: 'Trending Movies This Week',
+      req: {
+        requestType: RequestType.TRENDING_WEEK,
+        mediaType: MediaType.MOVIE,
+      },
       visible: true,
     },
     {
@@ -28,7 +36,7 @@ export default async function MoviePage() {
       visible: true,
     },
     {
-      title: 'Comedy Movies',
+      title: 'Laugh Out Loud Picks',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.MOVIE,
@@ -37,7 +45,7 @@ export default async function MoviePage() {
       visible: true,
     },
     {
-      title: 'Action Movies',
+      title: 'Adrenaline Rush',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.MOVIE,
@@ -46,7 +54,7 @@ export default async function MoviePage() {
       visible: true,
     },
     {
-      title: 'Romance Movies',
+      title: 'Date Night Movies',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.MOVIE,
@@ -55,7 +63,7 @@ export default async function MoviePage() {
       visible: true,
     },
     {
-      title: 'Scary Movies',
+      title: 'Midnight Thrills',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.MOVIE,

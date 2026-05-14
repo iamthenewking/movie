@@ -6,6 +6,13 @@ import { type AxiosResponse } from 'axios';
 import { clsx, type ClassValue } from 'clsx';
 import { cache } from 'react';
 import { twMerge } from 'tailwind-merge';
+import {
+  buildShowHref,
+  buildSlug,
+  buildWatchHref,
+  extractIdFromSlug,
+  normalizeShowName,
+} from '@/lib/routes-core';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -45,15 +52,11 @@ export function getSearchValue(input: string): string {
 }
 
 export function getSlug(id: number, name: string): string {
-  // build slug from name and id
-  const regex = /([^\x00-\x7F]|[&$\+,:;=\?@#\s<>\[\]\{\}|\\\^%])+/gm;
-  return `${name.toLowerCase().replace(regex, '-')}-${id}`;
+  return buildSlug(id, name);
 }
 
 export function getIdFromSlug(slug: string): number {
-  // get id from slug
-  const id: string | undefined = slug.split('-').pop();
-  return id ? parseInt(id) : 0;
+  return extractIdFromSlug(slug);
 }
 
 export function clearSearch(): void {
@@ -66,7 +69,52 @@ export function clearSearch(): void {
 }
 
 export function getNameFromShow(show: Show | null): string {
-  return show?.name ?? show?.title ?? '';
+  return normalizeShowName(show ?? {});
+}
+
+export function getShowHref(
+  show: Pick<Show, 'id' | 'media_type' | 'title' | 'name'>,
+): string {
+  return buildShowHref({
+    id: show.id,
+    mediaType: show.media_type,
+    title: show.title,
+    name: show.name,
+  });
+}
+
+export function getWatchHref(
+  show: Pick<Show, 'id' | 'media_type' | 'title' | 'name'>,
+  provider?: string,
+): string {
+  return buildWatchHref(
+    {
+      id: show.id,
+      mediaType: show.media_type,
+      title: show.title,
+      name: show.name,
+    },
+    provider,
+  );
+}
+
+export function formatRuntime(runtime: number | null): string | null {
+  if (!runtime || runtime <= 0) {
+    return null;
+  }
+  const hours = Math.floor(runtime / 60);
+  const minutes = runtime % 60;
+  if (!hours) {
+    return `${minutes}m`;
+  }
+  return `${hours}h ${minutes}m`;
+}
+
+export function getReleaseYear(
+  show: Pick<Show, 'release_date' | 'first_air_date'>,
+): number | null {
+  const input = show.release_date ?? show.first_air_date;
+  return input ? getYear(input) : null;
 }
 
 let timer: NodeJS.Timeout;

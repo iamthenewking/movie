@@ -13,8 +13,13 @@ export default async function TvShowPage() {
   const h1 = `${siteConfig.name} TV Shows`;
   const requests: ShowRequest[] = [
     {
-      title: 'Trending Now',
+      title: 'Trending TV Today',
       req: { requestType: RequestType.TRENDING, mediaType: MediaType.TV },
+      visible: true,
+    },
+    {
+      title: 'Trending TV This Week',
+      req: { requestType: RequestType.TRENDING_WEEK, mediaType: MediaType.TV },
       visible: true,
     },
     {
@@ -32,7 +37,7 @@ export default async function TvShowPage() {
       visible: true,
     },
     {
-      title: 'Comedy TV Shows',
+      title: 'Comfort Comedy',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.TV,
@@ -41,7 +46,7 @@ export default async function TvShowPage() {
       visible: true,
     },
     {
-      title: 'Action TV Shows',
+      title: 'High-Stakes Adventures',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.TV,
@@ -50,7 +55,7 @@ export default async function TvShowPage() {
       visible: true,
     },
     {
-      title: 'Drama TV Shows',
+      title: 'Prestige Drama',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.TV,
@@ -59,7 +64,7 @@ export default async function TvShowPage() {
       visible: true,
     },
     {
-      title: 'Scary TV Shows',
+      title: 'Late-Night Suspense',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.TV,

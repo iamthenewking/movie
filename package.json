@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --cache",
+    "test": "node --test --experimental-strip-types",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "prepare": "husky install"

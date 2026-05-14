@@ -3,6 +3,7 @@ import { type Genre } from './genre';
 
 export enum RequestType {
   TRENDING = 'trending',
+  TRENDING_WEEK = 'trending_week',
   TOP_RATED = 'top_rated',
   NETFLIX = 'netflix',
   POPULAR = 'popular',

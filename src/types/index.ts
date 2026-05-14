@@ -36,6 +36,7 @@ export type Show = {
   overview: string | null;
   popularity: number;
   poster_path: string | null;
+  genre_ids?: number[];
   number_of_seasons: number | null;
   number_of_episodes: number | null;
   release_date: string | null;
@@ -51,6 +52,9 @@ export type Show = {
   vote_average: number;
   vote_count: number;
   original_name?: string;
+  profile_path?: string | null;
+  known_for_department?: string | null;
+  character?: string | null;
 };
 
 export type KeyWord = {
@@ -94,6 +98,26 @@ export type ShowWithGenreAndVideo = Show & {
   genres: Genre[];
   videos?: {
     results: VideoResult[];
+  };
+};
+
+export type CastMember = {
+  id: number;
+  name: string;
+  character: string | null;
+  profile_path: string | null;
+  known_for_department?: string | null;
+};
+
+export type ShowDetails = ShowWithGenreAndVideo & {
+  credits?: {
+    cast: CastMember[];
+  };
+  recommendations?: {
+    results: Show[];
+  };
+  similar?: {
+    results: Show[];
   };
 };
 

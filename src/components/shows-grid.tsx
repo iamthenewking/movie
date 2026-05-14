@@ -4,7 +4,6 @@ import { useModalStore } from '@/stores/modal';
 import type { Show } from '@/types';
 import ShowModal from './shows-modal';
 import { ShowCard } from './shows-carousel';
-import { usePathname } from 'next/navigation';
 import { useSearchStore } from '@/stores/search';
 import ShowsSkeleton from './shows-skeleton';
 import { cn } from '@/lib/utils';
@@ -15,7 +14,6 @@ interface SearchedShowsProps {
 }
 
 const ShowsGrid = ({ shows, query }: SearchedShowsProps) => {
-  const pathname = usePathname();
   // modal store
   const modalStore = useModalStore();
   const searchStore = useSearchStore();
@@ -23,7 +21,12 @@ const ShowsGrid = ({ shows, query }: SearchedShowsProps) => {
   return (
     <section aria-label="Grid of shows" className="container w-full max-w-none">
       {modalStore.open && <ShowModal />}
-      <div className="main-view mt-4 min-h-[800px] pt-[5%]" id="main-view">
+      <div
+        className={cn(
+          'main-view mt-4 min-h-[800px]',
+          query ? 'pt-0' : 'pt-[5%]',
+        )}
+        id="main-view">
         {query && searchStore.loading ? (
           <ShowsSkeleton classname="pl-0" />
         ) : query && !shows?.length ? (
@@ -46,7 +49,7 @@ const ShowsGrid = ({ shows, query }: SearchedShowsProps) => {
               query && 'max-sm:grid-cols-3 max-[375px]:grid-cols-2',
             )}>
             {shows.map((show: Show) => (
-              <ShowCard key={show.id} show={show} pathname={pathname} />
+              <ShowCard key={show.id} show={show} />
             ))}
           </div>
         )}

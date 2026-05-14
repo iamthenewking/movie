@@ -17,13 +17,26 @@ export default async function NewAndPopularPage() {
       visible: true,
     },
     {
-      title: 'Trending TV Shows',
+      title: 'Trending TV Today',
       req: { requestType: RequestType.TRENDING, mediaType: MediaType.TV },
       visible: true,
     },
     {
-      title: 'Trending Movies',
+      title: 'Trending Movies Today',
       req: { requestType: RequestType.TRENDING, mediaType: MediaType.MOVIE },
+      visible: true,
+    },
+    {
+      title: 'Trending TV This Week',
+      req: { requestType: RequestType.TRENDING_WEEK, mediaType: MediaType.TV },
+      visible: true,
+    },
+    {
+      title: 'Trending Movies This Week',
+      req: {
+        requestType: RequestType.TRENDING_WEEK,
+        mediaType: MediaType.MOVIE,
+      },
       visible: true,
     },
     {

@@ -1,3 +1,5 @@
+'use client';
+
 import { type ImageProps, type ImageLoaderProps } from 'next/image';
 import React, { forwardRef } from 'react';
 import Image from 'next/image';

@@ -8,7 +8,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { getMobileDetect, getYear } from '@/lib/utils';
+import { getMobileDetect, getWatchHref, getYear } from '@/lib/utils';
 import MovieService from '@/services/MovieService';
 import { useModalStore } from '@/stores/modal';
 import {
@@ -18,7 +18,6 @@ import {
   type VideoResult,
 } from '@/types';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import Youtube from 'react-youtube';
 import CustomImage from './custom-image';
@@ -60,9 +59,11 @@ const ShowModal = () => {
   // stores
   const modalStore = useModalStore();
   const IS_MOBILE: boolean = isMobile();
+  const currentShow = modalStore.show;
+  const firstLoad = modalStore.firstLoad;
 
   const [trailer, setTrailer] = React.useState('');
-  const [isPlaying, setPlaying] = React.useState(true);
+  const [isPlaying] = React.useState(true);
   const [genres, setGenres] = React.useState<Genre[]>([]);
   const [isMuted, setIsMuted] = React.useState<boolean>(
     modalStore.firstLoad || IS_MOBILE,
@@ -74,20 +75,10 @@ const ShowModal = () => {
   const imageRef = React.useRef<HTMLImageElement>(null);
 
   // get trailer and genres of show
-  React.useEffect(() => {
-    if (modalStore.firstLoad || IS_MOBILE) {
-      setOptions((state: Record<string, object>) => ({
-        ...state,
-        playerVars: { ...state.playerVars, mute: 1 },
-      }));
-    }
-    void handleGetData();
-  }, []);
-
-  const handleGetData = async () => {
-    const id: number | undefined = modalStore.show?.id;
+  const handleGetData = React.useCallback(async () => {
+    const id: number | undefined = currentShow?.id;
     const type: string =
-      modalStore.show?.media_type === MediaType.TV ? 'tv' : 'movie';
+      currentShow?.media_type === MediaType.TV ? 'tv' : 'movie';
     if (!id || !type) {
       return;
     }
@@ -99,13 +90,23 @@ const ShowModal = () => {
       setGenres(data.genres);
     }
     if (data.videos?.results?.length) {
-      const videoData: VideoResult[] = data.videos?.results;
+      const videoData: VideoResult[] = data.videos.results;
       const result: VideoResult | undefined = videoData.find(
         (item: VideoResult) => item.type === 'Trailer',
       );
       if (result?.key) setTrailer(result.key);
     }
-  };
+  }, [currentShow]);
+
+  React.useEffect(() => {
+    if (firstLoad || IS_MOBILE) {
+      setOptions((state: Record<string, object>) => ({
+        ...state,
+        playerVars: { ...state.playerVars, mute: 1 },
+      }));
+    }
+    void handleGetData();
+  }, [IS_MOBILE, firstLoad, handleGetData]);
 
   const handleCloseModal = () => {
     modalStore.reset();
@@ -184,11 +185,9 @@ const ShowModal = () => {
           <div className="absolute bottom-6 z-20 flex w-full items-center justify-between gap-2 px-10">
             <div className="flex items-center gap-2.5">
               <Link
-                href={`/watch/${
-                  modalStore.show?.media_type === MediaType.MOVIE
-                    ? 'movie'
-                    : 'tv'
-                }/${modalStore.show?.id}`}>
+                href={
+                  modalStore.show ? getWatchHref(modalStore.show) : '/home'
+                }>
                 <Button
                   aria-label={`${isPlaying ? 'Pause' : 'Play'} show`}
                   className="group h-auto rounded py-1.5">

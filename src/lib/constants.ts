@@ -17,3 +17,12 @@ export const itemFade: Variants = {
     opacity: 1,
   },
 };
+
+export const DISCOVERY_TRENDING_QUERIES = [
+  'thriller',
+  'k-drama',
+  'romantic comedy',
+  'spy series',
+  'space adventure',
+  'animated movies',
+];

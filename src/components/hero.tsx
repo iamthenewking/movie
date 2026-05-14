@@ -1,52 +1,44 @@
 'use client';
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { getIdFromSlug } from '@/lib/utils';
+import { getShowHref } from '@/lib/utils';
 import MovieService from '@/services/MovieService';
 import { useModalStore } from '@/stores/modal';
 import { useSearchStore } from '@/stores/search';
-import { MediaType, type Show } from '@/types';
-import { type AxiosResponse } from 'axios';
+import { type Show } from '@/types';
 import Link from 'next/link';
 import React from 'react';
 import CustomImage from './custom-image';
+import Youtube from 'react-youtube';
+import {
+  MediaType,
+  type ShowWithGenreAndVideo,
+  type VideoResult,
+} from '@/types';
 
 interface HeroProps {
   randomShow: Show | null;
 }
 
 const Hero = ({ randomShow }: HeroProps) => {
-  React.useEffect(() => {
-    window.addEventListener('popstate', handlePopstateEvent, false);
-    return () => {
-      window.removeEventListener('popstate', handlePopstateEvent, false);
-    };
-  }, []);
+  const [trailer, setTrailer] = React.useState('');
 
-  const handlePopstateEvent = () => {
-    const pathname = window.location.pathname;
-    if (!/\d/.test(pathname)) {
-      modalStore.reset();
-    } else if (/\d/.test(pathname)) {
-      const movieId: number = getIdFromSlug(pathname);
-      if (!movieId) {
-        return;
-      }
-      const findMovie: Promise<AxiosResponse<Show>> = pathname.includes(
-        '/tv-shows',
-      )
-        ? MovieService.findTvSeries(movieId)
-        : MovieService.findMovie(movieId);
-      findMovie
-        .then((response: AxiosResponse<Show>) => {
-          const { data } = response;
-          useModalStore.setState({ show: data, open: true, play: true });
-        })
-        .catch((error) => {
-          console.log(`findMovie: `, error);
-        });
+  React.useEffect(() => {
+    if (!randomShow?.id) {
+      return;
     }
-  };
+    const type = randomShow.media_type === MediaType.TV ? 'tv' : 'movie';
+    MovieService.findMovieByIdAndType(randomShow.id, type)
+      .then((data: ShowWithGenreAndVideo) => {
+        const result = data.videos?.results?.find(
+          (item: VideoResult) => item.type === 'Trailer',
+        );
+        if (result?.key) {
+          setTrailer(result.key);
+        }
+      })
+      .catch(() => setTrailer(''));
+  }, [randomShow?.id, randomShow?.media_type]);
 
   // stores
   const modalStore = useModalStore();
@@ -61,12 +53,36 @@ const Hero = ({ randomShow }: HeroProps) => {
       {randomShow && (
         <>
           <div className="absolute inset-0 z-0 h-[100vw] w-full sm:h-[56.25vw]">
+            {trailer ? (
+              <Youtube
+                videoId={trailer}
+                title={`${
+                  randomShow?.title ?? randomShow?.name ?? 'show'
+                } trailer`}
+                opts={{
+                  playerVars: {
+                    autoplay: 1,
+                    controls: 0,
+                    mute: 1,
+                    loop: 1,
+                    playlist: trailer,
+                    rel: 0,
+                    playsinline: 1,
+                    modestbranding: 1,
+                  },
+                }}
+                className="absolute inset-0 z-0 h-full w-full"
+                iframeClassName="h-full w-full scale-[1.35] object-cover opacity-45"
+              />
+            ) : null}
             <CustomImage
               src={`https://image.tmdb.org/t/p/original${
                 randomShow?.backdrop_path ?? randomShow?.poster_path ?? ''
               }`}
               alt={randomShow?.title ?? 'poster'}
-              className="-z-40 h-auto w-full object-cover"
+              className={`-z-40 h-auto w-full object-cover transition-opacity duration-500 ${
+                trailer ? 'opacity-35' : 'opacity-100'
+              }`}
               sizes="(max-width: 768px) 50vw, (max-width: 1200px) 100vw, 33vw"
               fill
               priority
@@ -88,22 +104,12 @@ const Hero = ({ randomShow }: HeroProps) => {
                   {randomShow?.overview ?? '-'}
                 </p>
                 <div className="mt-[1.5vw] flex items-center space-x-2">
-                  <Link
-                    prefetch={false}
-                    href={`/watch/${
-                      randomShow.media_type === MediaType.MOVIE ? 'movie' : 'tv'
-                    }/${randomShow.id}`}>
+                  <Link prefetch={false} href={getShowHref(randomShow)}>
                     <Button
-                      aria-label="Play video"
-                      className="h-auto flex-shrink-0 gap-2 rounded-xl"
-                      // onClick={() => {
-                      //   modalStore.setShow(randomShow);
-                      //   modalStore.setOpen(true);
-                      //   modalStore.setPlay(true);
-                      // }}
-                    >
+                      aria-label="View show details"
+                      className="h-auto flex-shrink-0 gap-2 rounded-xl">
                       <Icons.play className="fill-current" aria-hidden="true" />
-                      Play
+                      View Details
                     </Button>
                   </Link>
                   <Button

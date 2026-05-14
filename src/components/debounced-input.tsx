@@ -53,14 +53,15 @@ export function DebouncedInput({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [onChange, onChangeStatusOpen]);
 
-  const debounceInput = React.useCallback(
-    debounce((value) => {
-      const strValue = value as string;
-      void onChange(strValue);
-    }, debounceTimeout),
-    [],
+  const debounceInput = React.useMemo(
+    () =>
+      debounce((value) => {
+        const strValue = value as string;
+        void onChange(strValue);
+      }, debounceTimeout),
+    [debounceTimeout, onChange],
   );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

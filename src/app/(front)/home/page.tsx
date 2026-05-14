@@ -13,8 +13,13 @@ export default async function Home() {
   const h1 = `${siteConfig.name} Home`;
   const requests: ShowRequest[] = [
     {
-      title: 'Trending Now',
+      title: 'Trending Today',
       req: { requestType: RequestType.TRENDING, mediaType: MediaType.ALL },
+      visible: true,
+    },
+    {
+      title: 'Trending This Week',
+      req: { requestType: RequestType.TRENDING_WEEK, mediaType: MediaType.ALL },
       visible: true,
     },
     {
@@ -41,7 +46,7 @@ export default async function Home() {
       visible: true,
     },
     {
-      title: 'Comedy Movies',
+      title: 'Laugh Out Loud Picks',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.MOVIE,
@@ -50,7 +55,7 @@ export default async function Home() {
       visible: true,
     },
     {
-      title: 'Action Movies',
+      title: 'Adrenaline Rush',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.MOVIE,
@@ -59,7 +64,7 @@ export default async function Home() {
       visible: true,
     },
     {
-      title: 'Romance Movies',
+      title: 'Date Night Movies',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.MOVIE,
@@ -68,7 +73,7 @@ export default async function Home() {
       visible: true,
     },
     {
-      title: 'Scary Movies',
+      title: 'Midnight Thrills',
       req: {
         requestType: RequestType.GENRE,
         mediaType: MediaType.MOVIE,

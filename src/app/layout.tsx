@@ -10,8 +10,10 @@ import { Analytics } from '@/components/analytics';
 import { siteConfig } from '@/configs/site';
 import { env } from '@/env.mjs';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import Script from 'next/script';
+import SiteHeader from '@/components/main/site-header';
+import GlobalWatchPlayer from '@/components/watch/global-watch-player';
+import AuthProvider from '@/components/auth/auth-provider';
 
 export const runtime = 'edge';
 
@@ -90,7 +92,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange>
           {/* <TrpcProvider> */}
+          <AuthProvider />
+          <SiteHeader />
           {children}
+          <GlobalWatchPlayer />
           <TailwindIndicator />
           <Analytics />
           <SpeedInsights />

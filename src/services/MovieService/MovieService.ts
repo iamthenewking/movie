@@ -2,10 +2,11 @@ import { getNameFromShow, getSlug } from '@/lib/utils';
 import type {
   CategorizedShows,
   KeyWordResponse,
-  MediaType,
   Show,
+  ShowDetails,
   ShowWithGenreAndVideo,
 } from '@/types';
+import { MediaType } from '@/types';
 import { type AxiosResponse } from 'axios';
 import BaseService from '../BaseService/BaseService';
 import {
@@ -23,11 +24,20 @@ const requestTypesNeedUpdateMediaType = [
   RequestType.POPULAR,
   RequestType.GENRE,
   RequestType.KOREAN,
-  RequestType.COMEDY,
 ];
 const baseUrl = 'https://api.themoviedb.org/3';
 
 class MovieService extends BaseService {
+  static normalizeSearchResults(results: Show[]) {
+    return results
+      .filter(
+        (item) =>
+          item.media_type === MediaType.MOVIE ||
+          item.media_type === MediaType.TV,
+      )
+      .sort((a, b) => b.popularity - a.popularity);
+  }
+
   static async findCurrentMovie(id: number, pathname: string): Promise<Show> {
     const data = await Promise.allSettled([
       this.findMovie(id),
@@ -73,12 +83,39 @@ class MovieService extends BaseService {
     return Promise.resolve(response.data);
   });
 
+  static findShowDetailsByIdAndType = cache(
+    async (id: number, type: string) => {
+      const params: Record<string, string> = {
+        language: 'en-US',
+        append_to_response: 'videos,credits,recommendations,similar',
+      };
+      const response: AxiosResponse<ShowDetails> = await this.axios(
+        baseUrl,
+      ).get<ShowDetails>(`/${type}/${id}`, { params });
+      if (response.data.recommendations?.results) {
+        response.data.recommendations.results = this.normalizeSearchResults(
+          response.data.recommendations.results,
+        );
+      }
+      if (response.data.similar?.results) {
+        response.data.similar.results = this.normalizeSearchResults(
+          response.data.similar.results,
+        );
+      }
+      return Promise.resolve(response.data);
+    },
+  );
+
   static urlBuilder(req: TmdbRequest) {
     switch (req.requestType) {
       case RequestType.TRENDING:
         return `/trending/${
           req.mediaType
         }/day?language=en-US&with_original_language=en&page=${req.page ?? 1}`;
+      case RequestType.TRENDING_WEEK:
+        return `/trending/${
+          req.mediaType
+        }/week?language=en-US&with_original_language=en&page=${req.page ?? 1}`;
       case RequestType.TOP_RATED:
         return `/${req.mediaType}/top_rated?page=${
           req.page ?? 1
@@ -161,11 +198,13 @@ class MovieService extends BaseService {
         page ?? 1
       }`,
     );
-    console.log(data.results[0]?.media_type);
-    data.results.sort((a, b) => {
-      return b.popularity - a.popularity;
-    });
+    data.results = this.normalizeSearchResults(data.results);
     return data;
+  });
+
+  static searchSuggestions = cache(async (query: string) => {
+    const data = await this.searchMovies(query, 1);
+    return data.results.slice(0, 6);
   });
 }
 
